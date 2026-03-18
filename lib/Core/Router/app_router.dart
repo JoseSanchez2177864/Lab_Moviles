@@ -1,9 +1,11 @@
 import 'package:go_router/go_router.dart';
 import 'package:privada/Pages/amenidades.dart';
 import 'package:privada/Pages/residente.dart';
+import 'package:privada/Pages/vigilante_home.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/residente',
+  //initialLocation: '/residente',
+  initialLocation: '/vigilante',
   routes: [
     GoRoute(
       path: '/residente',
@@ -21,6 +23,12 @@ final GoRouter appRouter = GoRouter(
         title: "Amenidades",
         subtitle: "Reserva espacios comunes",
       ),
+    ),
+
+    GoRoute(
+      path: '/vigilante',
+      name: 'vigilante',
+      builder: (context, state) => const VigilanteHomePage(),
     ),
   ],
 );
