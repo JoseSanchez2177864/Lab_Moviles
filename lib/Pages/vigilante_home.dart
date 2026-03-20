@@ -58,7 +58,7 @@ class VigilanteHomePage extends StatelessWidget {
         //Botón de Logout (lado derecho)
         actions: [
           IconButton(
-            icon: const Icon(Icons.logout, color: AppColors.completedGray),
+            icon: const Icon(Icons.exit_to_app_rounded, color: AppColors.completedGray),
             onPressed: () {
               //Aquí irá la función de regresar al Login
               context.go('/Login');
@@ -68,38 +68,86 @@ class VigilanteHomePage extends StatelessWidget {
       ),
       body: Column(
         children: [
+          // TÍTULO CENTRAL
+          const Padding(
+              padding: EdgeInsets.only(top: 30, bottom: 20),
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.qr_code_scanner_rounded,
+                    color: AppColors.darkBlue,
+                    size: 60,
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "Escaneo de QR",
+                    style: TextStyle(
+                      color: AppColors.primaryBlue,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    "Toca un botón para iniciar",
+                    style: TextStyle(
+                      color: AppColors.secondaryText,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+          ),
+
+
           //BOTONES: ENTRADA Y SALIDA
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
             child: Row(
               children: [
                 // BOTÓN: ENTRADA
                 Expanded(
                     child: Container(
-                       height: 140,
-                      decoration: MyApp.cardDecoration(), // Decoración general de la app
+                       height: 150,
+                      decoration: BoxDecoration(
+                        color: AppColors.lightGreen,
+                        borderRadius: BorderRadius.circular(25),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.primaryGreen.withOpacity(0.15),
+                            blurRadius: 15,
+                            offset: const Offset(0, 8),
+                          ),
+                        ],
+                      ), // Decoración general de la app
                       child: InkWell( //Función para que se pueda clickear
-                        borderRadius: BorderRadius.circular(20),
-                        onTap: () {},
+                        borderRadius: BorderRadius.circular(25),
+                        onTap: () {
+                          // Función para abrir la cámara/escáner
+                        },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: AppColors.lightGreen,
-                                borderRadius: BorderRadius.circular(12),
+                              padding: const EdgeInsets.all(12),
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
                               ),
-                              child: Icon(Icons.login_rounded, color: AppColors.primaryGreen, size: 28,),
+                              child: Icon(Icons.login_rounded, color: AppColors.primaryGreen, size: 32),
                             ),
-                            const SizedBox(height: 10),
-                            const Text(
+                            const SizedBox(height: 15),
+                            Text(
                               "Registrar Entrada",
-                              style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.primaryText, fontSize: 13),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.primaryGreen,
+                                  fontSize: 14
+                              ),
                             ),
+                            const SizedBox(height: 2),
                             Text(
                               "Acceso permitido",
-                              style: TextStyle(color: AppColors.secondaryText, fontSize: 11),
+                              style: TextStyle(color: AppColors.primaryGreen.withOpacity(0.8), fontSize: 12),
                             ),
                           ],
                         ),
@@ -111,30 +159,45 @@ class VigilanteHomePage extends StatelessWidget {
                 // BOTÓN: SALIDA
                 Expanded(
                   child: Container(
-                    height: 140,
-                    decoration: MyApp.cardDecoration(),
+                    height: 150,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFFEBEE),
+                      borderRadius: BorderRadius.circular(25),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.red.withOpacity(0.15),
+                          blurRadius: 15,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
+                    ),
                     child: InkWell(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(25),
                       onTap: () {},
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: Colors.red[50],
-                              borderRadius: BorderRadius.circular(12),
+                            padding: const EdgeInsets.all(12),
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
                             ),
-                            child: Icon(Icons.logout_rounded, color: Colors.red, size: 28,),
+                            child: const Icon(Icons.logout_rounded, color: Colors.red, size: 32),
                           ),
-                          const SizedBox(height: 10),
+                          const SizedBox(height: 15),
                           const Text(
                             "Registrar Salida",
-                            style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.primaryText, fontSize: 13),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red,
+                                fontSize: 14
+                            ),
                           ),
+                          const SizedBox(height: 2),
                           Text(
                             "Finalizar visita",
-                            style: TextStyle(color: AppColors.secondaryText, fontSize: 11),
+                            style: TextStyle(color: Colors.red.withOpacity(0.8), fontSize: 12),
                           ),
                         ],
                       ),
@@ -145,26 +208,7 @@ class VigilanteHomePage extends StatelessWidget {
             ),
           ),
 
-          //BOTÓN DE ESCANEAR QR
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: ElevatedButton.icon(
-              onPressed: () {
-                //Aquí irá la función de scanner más adelante
-              },
-              icon: const Icon(Icons.qr_code_scanner, size: 28),
-              label: const Text("Escanear código QR"),
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(double.infinity, 60),
-                backgroundColor: AppColors.primaryBlue,
-                foregroundColor: Colors.white,
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)
-                ),
-              ),
-            ),
-          ),
+
 
           // LISTA DE ÚLTIMOS MOVIMIENTOS
           //Título de la Sección
